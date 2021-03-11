@@ -56,6 +56,7 @@ namespace Landis.Extension.Succession.BiomassPnET
         public static bool UsingClimateLibrary;
         private ICommunity initialCommunity;
         public static int CohortBinSize;
+        public static bool PrecipEventsWithReplacement;
 
         private static SortedDictionary<string, Parameter<string>> parameters = new SortedDictionary<string, Parameter<string>>(StringComparer.InvariantCultureIgnoreCase);
         MyClock m = null;
@@ -332,7 +333,11 @@ namespace Landis.Extension.Succession.BiomassPnET
             IMAX = ((Parameter<ushort>)GetParameter(Names.IMAX)).Value;
             //LeakageFrostDepth = ((Parameter<float>)GetParameter(Names.LeakageFrostDepth)).Value; //Now an ecoregion parameter
             //PrecipEvents = ((Parameter<float>)GetParameter(Names.PrecipEvents)).Value;// Now an ecoregion parameter
-          
+
+            string precipEventsWithReplacement = ((Parameter<string>)GetParameter(Names.PrecipEventsWithReplacement)).Value;
+            PrecipEventsWithReplacement = true;
+            if (precipEventsWithReplacement == "false" || precipEventsWithReplacement == "no")
+                PrecipEventsWithReplacement = false;
 
             // Initialize Reproduction routines:
             Reproduction.SufficientResources = SufficientResources;
